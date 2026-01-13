@@ -27,9 +27,11 @@ COPY . .
 RUN pnpm build
 RUN pnpm ui:install
 RUN pnpm ui:build
+RUN cp -r ui/dist dist/control-ui
 
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV CLAWDBOT_GATEWAY_CONTROL_UI_BASE_PATH=/ui
 
 EXPOSE 3000
 
