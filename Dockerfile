@@ -37,4 +37,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD node -e "const port = process.env.PORT || 3000; fetch('http://localhost:' + port + '/health').then(r => process.exit(r.ok ? 0 : 1))"
 
 # Auto-generate token if missing to prevent startup failure on non-loopback bind
-CMD ["/bin/bash", "-c", "export CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN:-$(openssl rand -hex 32)}; echo \"Gateway Token: $CLAWDBOT_GATEWAY_TOKEN\"; exec node dist/entry.js gateway --port \"${PORT:-3000}\" --bind lan"]
+CMD ["/bin/bash", "-c", "export CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN:-$(openssl rand -hex 32)}; echo \"Gateway Token: $CLAWDBOT_GATEWAY_TOKEN\"; exec node dist/entry.js gateway --port \"${PORT:-3000}\" --bind lan --allow-unconfigured"]
