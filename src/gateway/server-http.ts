@@ -248,6 +248,13 @@ export function createGatewayHttpServer(opts: {
           return;
       }
 
+      if (req.url === "/") {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.end(JSON.stringify({ ok: true, service: "clawdbot-gateway" }));
+        return;
+      }
+
       res.statusCode = 404;
       res.setHeader("Content-Type", "text/plain; charset=utf-8");
       res.end("Not Found");
