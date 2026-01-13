@@ -32,5 +32,8 @@ ENV NODE_ENV=production
 
 EXPOSE 18789
 
-# CHỈ GIỮ 1 CMD
-CMD ["node","dist/entry.js","gateway","--port","18789","--bind","lan"]
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD node -e "fetch('http://localhost:18789/health').then(r => process.exit(r.ok ? 0 : 1))"
+
+# Auto-generate token if missing to prevent startup failure on non-loopback bind
+CMD ["/bin/bash", "-c", "export CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN:-$(openssl rand -hex 32)}; echo \"Gateway Token: $CLAWDBOT_GATEWAY_TOKEN\"; exec node dist/entry.js gateway --port 18789 --bind lan"]
