@@ -30,5 +30,7 @@ RUN pnpm ui:build
 
 ENV NODE_ENV=production
 
+EXPOSE 18789
+
 # CHỈ GIỮ 1 CMD
-CMD ["clawdbot","gateway","--port","18789","--host","0.0.0.0"]
+CMD ["node","dist/entry.js","gateway","--port","18789","--bind","lan"]
