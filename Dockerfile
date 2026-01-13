@@ -29,5 +29,6 @@ RUN pnpm ui:install
 RUN pnpm ui:build
 
 ENV NODE_ENV=production
-CMD ["node", "dist/index.js"]
+
+# CHỈ GIỮ 1 CMD
 CMD ["clawdbot","gateway","--port","18789","--host","0.0.0.0"]
